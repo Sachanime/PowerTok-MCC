@@ -1,6 +1,6 @@
 name: PowerTokMCC
 version: 1.0
 main: com.skl.powertok.mcc.Main
-api-version: 1.21
+api-version: 26.1
 author: Sachanime
 descritption: A core plugin for all PowerTok Minecraft plugins

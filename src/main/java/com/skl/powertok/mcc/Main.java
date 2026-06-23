@@ -9,7 +9,6 @@ import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.format.NamedTextColor;
 
 import com.skl.powertok.mcc.managers.BossbarManager;
-//import com.skl.minecraftRaids.managers.CommandManager;
 
 public class Main extends JavaPlugin implements Listener {
 
@@ -17,9 +16,6 @@ public class Main extends JavaPlugin implements Listener {
     public void onEnable() {
 
         getLogger().info("Plugin started");
-        //CommandManager commandLoader = new CommandManager(this);
-        //commandLoader.registerCommand();
-
         getServer().getPluginManager().registerEvents(this, this);
 
     }

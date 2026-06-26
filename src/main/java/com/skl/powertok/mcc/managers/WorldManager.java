@@ -10,45 +10,39 @@ import org.bukkit.WorldType;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.command.CommandSender;
-import com.skl.powertok.mcc.enums.MapType;
-import com.skl.powertok.mcc.enums.MinigameType;
 
 public class WorldManager {
     
-    public int createNewRaidWorld(CommandSender sender, MinigameType minigameType, MapType worldType) {
+    public int createNewRaidWorld(CommandSender sender, String minigameType, long seed, double spawnXCrd, double spawnYCrd, double spawnZCrd) {
 
         Player player = (Player)sender;
         String playerName = player.getName().toLowerCase();
         World playerWorld = player.getWorld();
-        String minigame = minigameType.getMinigame();
-        long worldSeed = worldType.getSeed();
 
         if(playerWorld.getName().equals("raid." + playerName)) {
-            player.sendMessage("§c[PowerTok WorldManager] §fYou can't have more than 1 world");
+            player.sendMessage("§c[WorldManager] §fYou can't have more than 1 world");
             return(0);
         }
 
-        player.sendMessage("§9[PowerTok WorldManager] §fCreating your world...");
+        player.sendMessage("§9[WorldManager] §fCreating your world...");
 
-        String worldName = minigame + playerName;
+        String worldName = minigameType + playerName;
         WorldCreator creator = new WorldCreator(worldName);
 
         creator.type(WorldType.NORMAL);
-        creator.seed(worldSeed);
+        creator.seed(seed);
         creator.generateStructures(true);
 
         World world = Bukkit.createWorld(creator);
-        int xCrd = worldType.getXCrd();
-        int yCrd = worldType.getYCrd();
-        int zCrd = worldType.getZCrd();
-        Location spawnPoint = new Location(world, xCrd, yCrd, zCrd);
+        Location spawnPoint = new Location(world, spawnXCrd, spawnYCrd, spawnZCrd);
+
         spawnPoint.getChunk().load();
         world.setSpawnLocation(spawnPoint);
-        player.sendMessage("§a[PowerTok WorldManager] §fWorld created");
+        player.sendMessage("§a[WorldManager] §fWorld created");
 
         Location targetSpawn = world.getSpawnLocation();
 
-        player.sendMessage("§9[PowerTok Worldanager] §fTeleporting to your world...");
+        player.sendMessage("§9[Worldanager] §fTeleporting to your world...");
         player.teleport(targetSpawn);
         player.setGameMode(GameMode.SURVIVAL);
         player.setRespawnLocation(targetSpawn);
@@ -64,13 +58,13 @@ public class WorldManager {
         World overworld = Bukkit.getWorld("world");
 
         for(Player players : playerWorld.getPlayers()) {
-            players.sendMessage("§9[PowerTok WorldManager] §fTeleporting to lobby...");
+            players.sendMessage("§9[WorldManager] §fTeleporting to lobby...");
             players.teleport(overworld.getSpawnLocation());
             players.setGameMode(GameMode.CREATIVE);
             players.setRespawnLocation(overworld.getSpawnLocation());
         }
 
-        player.sendMessage("§9[PowerTok WorldManager] §fDeleting your world...");
+        player.sendMessage("§9[WorldManager] §fDeleting your world...");
 
         String worldName = playerWorld.getName();
         String worldPath = "world/dimensions/minecraft/" + worldName;
@@ -83,11 +77,11 @@ public class WorldManager {
                 boolean success = deleteWorldFolder(worldFolder);
 
                 if(success) {
-                    player.sendMessage("§a[PowerTok WorldManager] §fWorld deleted");
+                    player.sendMessage("§a[WorldManager] §fWorld deleted");
                 }
 
                 else {
-                    player.sendMessage("§c[PowerTok WorldManager] §fDeleting error");
+                    player.sendMessage("§c[WorldManager] §fDeleting error");
                 }
 
             },

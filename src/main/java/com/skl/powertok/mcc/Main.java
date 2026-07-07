@@ -25,7 +25,7 @@ public class Main extends JavaPlugin implements Listener {
 
         Player player = event.getPlayer();
         BossbarManager welcomerBossBar = new BossbarManager();
-        welcomerBossBar.displyaBossBar(player, "PowerTok MCP - Dev Server", NamedTextColor.WHITE, 1.0f, BossBar.Color.PURPLE, BossBar.Overlay.PROGRESS);
+        welcomerBossBar.displayBossBar(player, "PowerTok MCP - Dev Server", NamedTextColor.WHITE, 1.0f, BossBar.Color.PURPLE, BossBar.Overlay.PROGRESS);
 
     }
 

@@ -13,6 +13,17 @@ import org.bukkit.command.CommandSender;
 
 public class WorldManager {
     
+    /**
+     * Créé un nouveau monde
+     * 
+     * @param sender        Le joueur qui a exécuté la commande
+     * @param minigameType  Le type du mini-jeu qui sera joué dans le monde
+     * @param seed          La seed du monde
+     * @param spawnXCrd     Les coordonnées X du spawnpoint
+     * @param spawnYCrd     Les coordonnées Y du spawnpoint
+     * @param spawnZCrd     Les coordonnées Z du spawnpoint
+     * @return
+     */
     public int createNewRaidWorld(CommandSender sender, String minigameType, long seed, double spawnXCrd, double spawnYCrd, double spawnZCrd) {
 
         Player player = (Player)sender;
@@ -51,6 +62,11 @@ public class WorldManager {
 
     }
 
+    /**
+     * Supprimer un monde existant
+     * 
+     * @param sender    Le joueur qui a exécuté la commande
+     */
     public void deleteWorld(CommandSender sender) {
 
         Player player = (Player)sender;
@@ -90,6 +106,12 @@ public class WorldManager {
 
     }
 
+    /**
+     * Supprimer le répertoire d'un monde présente sur le serveur
+     * 
+     * @param worldFolder   Le répertoire du monde à supprimer
+     * @return
+     */
     private boolean deleteWorldFolder(File worldFolder) {
 
         if(worldFolder.isDirectory()) {

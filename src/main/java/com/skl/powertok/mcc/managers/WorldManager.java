@@ -53,7 +53,7 @@ public class WorldManager {
 
         Location targetSpawn = world.getSpawnLocation();
 
-        player.sendMessage("§9[Worldanager] §fTeleporting to your world...");
+        player.sendMessage("§9[WorldManager] §fTeleporting to your world...");
         player.teleport(targetSpawn);
         player.setGameMode(GameMode.SURVIVAL);
         player.setRespawnLocation(targetSpawn);

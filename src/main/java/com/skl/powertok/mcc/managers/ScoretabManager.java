@@ -6,6 +6,7 @@ import org.bukkit.scoreboard.ScoreboardManager;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Criteria;
+import org.bukkit.entity.Player;
 import net.kyori.adventure.text.Component;
 
 public class ScoretabManager {
@@ -67,6 +68,19 @@ public class ScoretabManager {
 
         scoreboard.resetScores(score);
         
+    }
+
+    /**
+     * Supprime le Scoreboard d'un joueur
+     * 
+     * @param player
+     */
+    @SuppressWarnings("null")
+    public void deleteScoreboard(Player player) {
+
+        Scoreboard mainScoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
+        player.setScoreboard(mainScoreboard);
+
     }
 
 }

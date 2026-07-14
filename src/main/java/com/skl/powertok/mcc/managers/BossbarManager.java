@@ -40,4 +40,20 @@ public class BossbarManager {
         player.hideBossBar(bossBar);
     }
 
+    /**
+     * Modifier le titre d'une BossBar
+     * 
+     * @param bossbar       La BossBar à modifier
+     * @param title         Le nouveau titre de la BossBar
+     * @param titleColor    La couleur du titre
+     */
+    public void editBossBarName(BossBar bossbar, String title, NamedTextColor titleColor) {
+
+        Component bossBarTitle = MiniMessage.miniMessage().deserialize(title);
+
+        bossBarTitle.color(titleColor);
+        bossbar.name(bossBarTitle);
+
+    }
+
 }

@@ -56,7 +56,7 @@ public class WorldManager {
         player.sendMessage("§9[WorldManager] §fTeleporting to your world...");
         player.teleport(targetSpawn);
         player.setGameMode(GameMode.SURVIVAL);
-        player.setRespawnLocation(targetSpawn);
+        player.setRespawnLocation(targetSpawn, true);
 
         return(1);
 
@@ -77,7 +77,7 @@ public class WorldManager {
             players.sendMessage("§9[WorldManager] §fTeleporting to lobby...");
             players.teleport(overworld.getSpawnLocation());
             players.setGameMode(GameMode.CREATIVE);
-            players.setRespawnLocation(overworld.getSpawnLocation());
+            players.setRespawnLocation(overworld.getSpawnLocation(), true);
         }
 
         player.sendMessage("§9[WorldManager] §fDeleting your world...");

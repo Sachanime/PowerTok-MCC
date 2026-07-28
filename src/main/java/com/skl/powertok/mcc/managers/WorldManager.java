@@ -2,8 +2,9 @@ package com.skl.powertok.mcc.managers;
 
 import java.io.File;
 import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.GameMode;
+import org.bukkit.GameRules;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.WorldType;
@@ -47,6 +48,12 @@ public class WorldManager {
         World world = Bukkit.createWorld(creator);
         Location spawnPoint = new Location(world, spawnXCrd, spawnYCrd, spawnZCrd);
 
+        world.setGameRule(GameRules.ADVANCE_TIME, false);
+        world.setGameRule(GameRules.ADVANCE_WEATHER, false);
+        world.setGameRule(GameRules.BLOCK_DROPS, false);
+        world.setGameRule(GameRules.ENTITY_DROPS, false);
+        world.setGameRule(GameRules.MOB_GRIEFING, false);
+
         spawnPoint.getChunk().load();
         world.setSpawnLocation(spawnPoint);
         player.sendMessage("§a[WorldManager] §fWorld created");
@@ -55,7 +62,7 @@ public class WorldManager {
 
         player.sendMessage("§9[WorldManager] §fTeleporting to your world...");
         player.teleport(targetSpawn);
-        player.setGameMode(GameMode.SURVIVAL);
+        player.setGameMode(GameMode.ADVENTURE);
         player.setRespawnLocation(targetSpawn, true);
 
         return(1);

@@ -52,8 +52,10 @@ public class WorldManager {
         world.setGameRule(GameRules.ADVANCE_WEATHER, false);
         world.setGameRule(GameRules.BLOCK_DROPS, false);
         world.setGameRule(GameRules.ENTITY_DROPS, false);
+        world.setGameRule(GameRules.MOB_DROPS, false);
         world.setGameRule(GameRules.MOB_GRIEFING, false);
 
+        world.setTime(1000L);
         spawnPoint.getChunk().load();
         world.setSpawnLocation(spawnPoint);
         player.sendMessage("§a[WorldManager] §fWorld created");

@@ -19,6 +19,14 @@
             <id>papermc</id>
             <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
+        <repository>
+            <id>infernalsuite</id>
+            <url>https://repo.infernalsuite.com/repository/maven-snapshots/</url>
+        </repository>
+        <repository>
+            <id>titanvale-releases</id>
+            <url>https://repo.titanvale.net/releases/</url>
+        </repository> 
     </repositories>
 
     <dependencies>
@@ -26,6 +34,18 @@
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
             <version>26.1.2.build.69-stable</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.infernalsuite.aswm</groupId>
+            <artifactId>api</artifactId>
+            <version>3.0.0-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.flowpowered</groupId>
+            <artifactId>flow-nbt</artifactId>
+            <version>2.0.2</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

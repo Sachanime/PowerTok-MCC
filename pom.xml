@@ -20,33 +20,29 @@
             <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
         <repository>
-            <id>infernalsuite</id>
-            <url>https://repo.infernalsuite.com/repository/maven-snapshots/</url>
+            <id>infernalsuite-releases</id>
+            <url>https://repo.infernalsuite.com/repository/maven-releases/</url>
         </repository>
-        <repository>
-            <id>titanvale-releases</id>
-            <url>https://repo.titanvale.net/releases/</url>
-        </repository> 
     </repositories>
 
     <dependencies>
         <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>26.1.2.build.69-stable</version>
+            <version>26.2.build.92-stable</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.infernalsuite.aswm</groupId>
+            <groupId>com.infernalsuite.asp</groupId>
             <artifactId>api</artifactId>
-            <version>3.0.0-SNAPSHOT</version>
+            <version>4.1.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.flowpowered</groupId>
-            <artifactId>flow-nbt</artifactId>
-            <version>2.0.2</version>
-            <scope>provided</scope>
+            <groupId>com.infernalsuite.asp</groupId>
+            <artifactId>file-loader</artifactId>
+            <version>4.1.0</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

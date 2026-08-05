@@ -4,7 +4,11 @@ import java.io.File;
 import java.io.IOException;
 import com.infernalsuite.asp.api.AdvancedSlimePaperAPI;
 import com.infernalsuite.asp.api.exceptions.UnknownWorldException;
+import com.infernalsuite.asp.api.exceptions.WorldAlreadyExistsException;
+import com.infernalsuite.asp.api.exceptions.WorldLoadedException;
+import com.infernalsuite.asp.api.exceptions.WorldTooBigException;
 import com.infernalsuite.asp.api.exceptions.CorruptedWorldException;
+import com.infernalsuite.asp.api.exceptions.InvalidWorldException;
 import com.infernalsuite.asp.api.exceptions.NewerFormatException;
 import com.infernalsuite.asp.api.world.SlimeWorld;
 import com.infernalsuite.asp.api.world.properties.SlimePropertyMap;
@@ -41,11 +45,11 @@ public class AdvancedWorldManager {
         String worldName = minigameType + "." + playerName;
 
         if(playerWorld.getName().contains(playerName)) {
-            player.sendMessage("§c[WorldManager] §fYou can't have more than 1 world");
+            player.sendMessage("§c[AWM] §fYou can't have more than 1 world");
             return(0);
         }
 
-        player.sendMessage("§9[WorldManager] §fCreating your world...");
+        player.sendMessage("§9[AWM] §fCreating your world...");
 
         SlimePropertyMap propertyMap = new SlimePropertyMap();
         propertyMap.setValue(SlimeProperties.DIFFICULTY, "normal");
@@ -87,8 +91,8 @@ public class AdvancedWorldManager {
 
                             Location targetSpawn = new Location(world, spawnXCrd, spawnYCrd, spawnZCrd);
 
-                            player.sendMessage("§a[WorldManager] §fWorld created");
-                            player.sendMessage("§9[WorldManager] §fTeleporting to your world...");
+                            player.sendMessage("§a[AWM] §fWorld created");
+                            player.sendMessage("§9[AWM] §fTeleporting to your world...");
                             player.teleport(targetSpawn);
                             player.setGameMode(GameMode.ADVENTURE);
                             player.setRespawnLocation(targetSpawn, true);
@@ -100,7 +104,7 @@ public class AdvancedWorldManager {
                 }
 
                 catch(UnknownWorldException | IOException | CorruptedWorldException | NewerFormatException error) {
-                    player.sendMessage("§c[WorldManager] §fUne erreur est survenue lors de la création du monde !");
+                    player.sendMessage("§c[AWM] §fAn error occurred while creating the world");
                     error.printStackTrace();
                 }
             }
@@ -122,24 +126,60 @@ public class AdvancedWorldManager {
         }
 
         for(Player players : playerWorld.getPlayers()) {
-            players.sendMessage("§9[WorldManager] §fTeleporting to lobby...");
+            players.sendMessage("§9[AWM] §fTeleporting to lobby...");
             players.teleport(overworld.getSpawnLocation());
             players.setGameMode(GameMode.CREATIVE);
             players.setRespawnLocation(overworld.getSpawnLocation(), true);
         }
 
-        player.sendMessage("§9[WorldManager] §fDeleting your world...");
+        player.sendMessage("§9[AWM] §fDeleting your world...");
         String worldName = playerWorld.getName();
 
         boolean unloaded = Bukkit.unloadWorld(worldName, false);
+        System.gc();
 
         if(unloaded) {
-            player.sendMessage("§a[WorldManager] §fWorld deleted successfully");
+            player.sendMessage("§a[AWM] §fWorld deleted successfully");
         }
 
         else {
-            player.sendMessage("§c[WorldManager] §fDeleting error");
+            player.sendMessage("§c[AWM] §fAn error occurred while deleting the world");
         }
+
+    }
+
+    public void createSlime(CommandSender sender, String worldName, String slimeName) {
+
+        new BukkitRunnable() {
+            
+            @Override
+            public void run() {
+
+                try {
+
+                    sender.sendMessage("§9[AWM] §fConverting Anvil world...");
+
+                    AdvancedSlimePaperAPI asp = AdvancedSlimePaperAPI.instance();
+                    File worldFolder = new File(Bukkit.getServer().getWorldContainer(), "worldsStorage/" + worldName + "/dimensions/minecraft/overworld");
+                    File slimesDirectory = new File(plugin.getDataFolder().getParentFile(), "slime_worlds");
+                    SlimeLoader loader = new FileLoader(slimesDirectory);
+                    SlimeWorld tempSlimeWorld = asp.readVanillaWorld(worldFolder, worldName, loader);
+                    SlimeWorld slimeWorld = tempSlimeWorld.clone(slimeName);
+
+                    asp.saveWorld(slimeWorld);
+                    
+                    sender.sendMessage("§a[AWM] §fWorld converted");
+
+                }
+
+                catch(InvalidWorldException | WorldLoadedException | WorldTooBigException | WorldAlreadyExistsException | IOException error) {
+                    sender.sendMessage("§c[AWM] §fAn error occurred while converting the world");
+                    error.printStackTrace();
+                }
+
+            }
+
+        }.runTaskAsynchronously(plugin);
 
     }
 

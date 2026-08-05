@@ -7,8 +7,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.format.NamedTextColor;
-
 import com.skl.powertok.mcc.managers.BossbarManager;
+import com.skl.powertok.mcc.managers.CommandManager;
 
 public class Main extends JavaPlugin implements Listener {
 
@@ -16,18 +16,22 @@ public class Main extends JavaPlugin implements Listener {
     public void onEnable() {
 
         getLogger().info("Plugin started");
+
+        CommandManager commandLoader = new CommandManager(this);
+        commandLoader.registerCommand();
+
         getServer().getPluginManager().registerEvents(this, this);
 
     }
 
-    @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
+    //@EventHandler
+    //public void onPlayerJoin(PlayerJoinEvent event) {
 
-        Player player = event.getPlayer();
-        BossbarManager welcomerBossBar = new BossbarManager();
-        welcomerBossBar.displayBossBar(player, "PowerTok MCP - Dev Server", NamedTextColor.WHITE, 1.0f, BossBar.Color.PURPLE, BossBar.Overlay.PROGRESS);
+    //    Player player = event.getPlayer();
+    //    BossbarManager welcomerBossBar = new BossbarManager();
+    //    welcomerBossBar.displayBossBar(player, "PowerTok MCP - Dev Server", NamedTextColor.WHITE, 1.0f, BossBar.Color.PURPLE, BossBar.Overlay.PROGRESS);
 
-    }
+    //}
 
     @Override
     public void onDisable() {

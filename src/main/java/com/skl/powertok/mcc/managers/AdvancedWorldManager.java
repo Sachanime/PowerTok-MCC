@@ -22,6 +22,7 @@ import org.bukkit.GameMode;
 import org.bukkit.GameRules;
 import org.bukkit.Location;
 import org.bukkit.World;
+import org.bukkit.WorldBorder;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -87,7 +88,13 @@ public class AdvancedWorldManager {
                             world.setGameRule(GameRules.ENTITY_DROPS, false);
                             world.setGameRule(GameRules.MOB_DROPS, false);
                             world.setGameRule(GameRules.MOB_GRIEFING, false);
+                            world.setGameRule(GameRules.KEEP_INVENTORY, true);
                             world.setTime(1000L);
+                            
+                            Location worldBorderCenter = new Location(world, 81, 64, 38);
+                            WorldBorder worldBorder = world.getWorldBorder();
+                            worldBorder.setCenter(worldBorderCenter);
+                            worldBorder.setSize(150.0);
 
                             Location targetSpawn = new Location(world, spawnXCrd, spawnYCrd, spawnZCrd);
 

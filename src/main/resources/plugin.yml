@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://json.schemastore.org/bukkit-plugin.json
 
 name: PowerTokMCC
-version: 1.0
+version: 1.0-SNAPSHOT
 main: com.skl.powertok.mcc.Main
 api-version: 26.2
 author: Sachanime

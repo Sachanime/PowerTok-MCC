@@ -12,9 +12,9 @@ import net.kyori.adventure.text.Component;
 public class ScoretabManager {
 
     /**
-     * Crée un nouveau Scoreboard
+     * Create a new Scoreboard
      * 
-     * @return
+     * @return The Scoreboard
      */
     public Scoreboard newScoreboard() {
 
@@ -26,12 +26,12 @@ public class ScoretabManager {
     }
 
     /**
-     * Définit les données du Scoreboard
+     * Define Scoreboard data
      * 
-     * @param scoreboard
-     * @param id
-     * @param title
-     * @return
+     * @param scoreboard    Target Scoreboard
+     * @param id            Scoreboard ID
+     * @param title         Scoreboard title
+     * @return              Scorebaord data object
      */
     public Objective setScoreboardObjective(Scoreboard scoreboard, String id, Component title) {
 
@@ -43,12 +43,12 @@ public class ScoretabManager {
     }
 
     /**
-     * Ajoute une ligne au Scoreboard
+     * Add line to a Scoreboard
      * 
-     * @param objective
-     * @param score
-     * @param scoreValue
-     * @return
+     * @param objective     Scoreboard data object
+     * @param score         Line text
+     * @param scoreValue    Line position
+     * @return              New Scorebaord data object
      */
     public Objective editScoreboardObjective(Objective objective, String score, int scoreValue) {
 
@@ -59,10 +59,10 @@ public class ScoretabManager {
     }
 
     /**
-     * Supprime une ligne au Scoreboard
+     * Delete Scorebaord line
      * 
-     * @param scoreboard
-     * @param score
+     * @param scoreboard    Target Scoreboard
+     * @param score         Line
      */
     public void removeScoreboardObjective(Scoreboard scoreboard, String score) {
 
@@ -71,14 +71,18 @@ public class ScoretabManager {
     }
 
     /**
-     * Supprime le Scoreboard d'un joueur
+     * Delete Scorebord from a player
      * 
-     * @param player
+     * @param player Target player
      */
-    @SuppressWarnings("null")
     public void deleteScoreboard(Player player) {
 
         Scoreboard mainScoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
+
+        if(mainScoreboard == null) {
+            return;
+        }
+
         player.setScoreboard(mainScoreboard);
 
     }

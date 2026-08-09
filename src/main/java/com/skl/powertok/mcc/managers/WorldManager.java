@@ -12,11 +12,17 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.command.CommandSender;
 
+/**
+ * @deprecated This is the old WorldManager. Please use {@link AdvancedWorldManager}
+ * WorldManager
+ */
+@Deprecated
 public class WorldManager {
     
     /**
      * Créé un nouveau monde
      * 
+     * @deprecated This method belong to a deprecated class
      * @param sender        Le joueur qui a exécuté la commande
      * @param minigameType  Le type du mini-jeu qui sera joué dans le monde
      * @param seed          La seed du monde
@@ -25,6 +31,7 @@ public class WorldManager {
      * @param spawnZCrd     Les coordonnées Z du spawnpoint
      * @return
      */
+    @Deprecated
     public int createNewRaidWorld(CommandSender sender, String minigameType, long seed, double spawnXCrd, double spawnYCrd, double spawnZCrd) {
 
         Player player = (Player)sender;
@@ -74,8 +81,10 @@ public class WorldManager {
     /**
      * Supprimer un monde existant
      * 
+     * @deprecated This method belong to a deprecated class
      * @param sender    Le joueur qui a exécuté la commande
      */
+    @Deprecated
     public void deleteWorld(CommandSender sender) {
 
         Player player = (Player)sender;

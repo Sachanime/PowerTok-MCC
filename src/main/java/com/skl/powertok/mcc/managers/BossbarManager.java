@@ -1,5 +1,6 @@
 package com.skl.powertok.mcc.managers;
 
+import org.jspecify.annotations.NonNull;
 import org.bukkit.entity.Player;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.Component;
@@ -9,16 +10,18 @@ import net.kyori.adventure.text.format.NamedTextColor;
 public class BossbarManager {
 
     /**
-     * Affiche une BossBar
+     * Display a BossBar to a player
      * 
-     * @param player        Le joueur qui verra la BossBar
-     * @param title         Le titre de la BossBar
-     * @param titleColor    La couleur du titre 
-     * @param progress      Le taux de remplissage de la BossBar
-     * @param color         La couleur de la BossBar
-     * @param notchNumber   Le nombre de section de la BossBar ({@code PROGRESS | NOTCHED_6 | NOTCHED_10 | NOTCHED_ 12 | NOTCHED_20})
+     * @param player        Target player
+     * @param title         BossBar title
+     * @param titleColor    BossBar title color
+     * @param progress      BossBar fill level
+     * @param color         BossBar color
+     * @param notchNumber   BossBar section number ({@code PROGRESS | NOTCHED_6 | NOTCHED_10 | NOTCHED_ 12 | NOTCHED_20})
+     * 
+     * @return              The BossBar
      */
-    public BossBar displayBossBar(Player player, String title, NamedTextColor titleColor, float progress, BossBar.Color color, BossBar.Overlay notchNumber) {
+    public BossBar displayBossBar(Player player, @NonNull String title, NamedTextColor titleColor, float progress, BossBar.@NonNull Color color, BossBar.@NonNull Overlay notchNumber) {
 
         Component bossBarTitle = MiniMessage.miniMessage().deserialize(title);
         bossBarTitle.color(titleColor);
@@ -31,23 +34,23 @@ public class BossbarManager {
     }
 
     /**
-     * Supprime une BossBar
+     * Hide a BossBar from a player
      * 
      * @param player    Le joueur qui a la BossBar
      * @param bossBar   La BossBar à supprimer
      */
-    public void noDisplayBossBar(Player player, BossBar bossBar) {
+    public void noDisplayBossBar(Player player, @NonNull BossBar bossBar) {
         player.hideBossBar(bossBar);
     }
 
     /**
-     * Modifier le titre d'une BossBar
+     * Edit a BossBar title
      * 
-     * @param bossbar       La BossBar à modifier
-     * @param title         Le nouveau titre de la BossBar
-     * @param titleColor    La couleur du titre
+     * @param bossbar       Target BossBar
+     * @param title         BossBar new title
+     * @param titleColor    BossBar title color
      */
-    public void editBossBarName(BossBar bossbar, String title, NamedTextColor titleColor) {
+    public void editBossBarName(BossBar bossbar, @NonNull String title, NamedTextColor titleColor) {
 
         Component bossBarTitle = MiniMessage.miniMessage().deserialize(title);
 

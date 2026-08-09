@@ -10,6 +10,7 @@ import org.bukkit.Location;
 import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.format.NamedTextColor;
 import com.skl.powertok.mcc.managers.BossbarManager;
+import org.bukkit.GameMode;
 import com.skl.powertok.mcc.managers.CommandManager;
 
 public class Main extends JavaPlugin implements Listener {
@@ -31,11 +32,16 @@ public class Main extends JavaPlugin implements Listener {
 
         Player player = event.getPlayer();
         World playerWorld = player.getWorld();
+        String playerWorldName = playerWorld.getName();
         Location spawnPoint = playerWorld.getSpawnLocation();
 
         player.teleport(spawnPoint);
         //BossbarManager welcomerBossBar = new BossbarManager();
         //welcomerBossBar.displayBossBar(player, "PowerTok MCP - Dev Server", NamedTextColor.WHITE, 1.0f, BossBar.Color.PURPLE, BossBar.Overlay.PROGRESS);
+
+        if(playerWorldName.equals("world")) {
+            player.setGameMode(GameMode.CREATIVE);
+        }
 
     }
 

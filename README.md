@@ -1,8 +1,9 @@
 # PowerTok-MCC
-[![Ask DeepWiki](https://devin.ai/assets/askdeepwiki.png)](https://deepwiki.com/Sachanime/PowerTok-MCC)<br>
 [![](https://jitpack.io/v/Sachanime/PowerTok-MCC.svg)](https://jitpack.io/#Sachanime/PowerTok-MCC)
 
 PowerTok-MCC is a core library plugin for Minecraft servers running on PaperMC. It provides a suite of convenient manager classes designed to simplify common plugin development tasks such as world management, UI creation, and command handling. This plugin is intended to be used as a dependency for other PowerTok plugins.
+
+[![Ask DeepWiki](https://devin.ai/assets/askdeepwiki.png)](https://deepwiki.com/Sachanime/PowerTok-MCC)
 
 ## Features
 

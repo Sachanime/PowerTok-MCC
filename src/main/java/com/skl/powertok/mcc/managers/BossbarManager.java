@@ -23,8 +23,7 @@ public class BossbarManager {
      */
     public BossBar displayBossBar(Player player, @NonNull String title, NamedTextColor titleColor, float progress, BossBar.@NonNull Color color, BossBar.@NonNull Overlay notchNumber) {
 
-        Component bossBarTitle = MiniMessage.miniMessage().deserialize(title);
-        bossBarTitle.color(titleColor);
+        Component bossBarTitle = MiniMessage.miniMessage().deserialize(title).color(titleColor);
         
         BossBar bossBar = BossBar.bossBar(bossBarTitle, progress, color, notchNumber);
         player.showBossBar(bossBar);

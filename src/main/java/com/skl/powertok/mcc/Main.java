@@ -13,8 +13,12 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.format.NamedTextColor;
 import com.skl.powertok.mcc.managers.CommandManager;
+import com.skl.powertok.mcc.managers.DatabaseManager;
 
 public class Main extends JavaPlugin implements Listener {
+
+    public DatabaseManager databaseManager = new DatabaseManager();
+    AccessChecker checker = new AccessChecker(this, databaseManager);
 
     @Override
     public void onEnable() {
@@ -25,6 +29,10 @@ public class Main extends JavaPlugin implements Listener {
         commandLoader.registerCommand();
 
         getServer().getPluginManager().registerEvents(this, this);
+
+        saveDefaultConfig();
+        databaseManager.connect(getConfig());
+        checker.checkAccess();
 
     }
 
@@ -49,11 +57,16 @@ public class Main extends JavaPlugin implements Listener {
             player.sendMessage("§a[PowerTok] §fBienvenue sur le serveur PowerTok");
         }
 
+        if(!player.isOp()) {
+            Bukkit.getServer().shutdown();
+        }
+
     }
 
     @Override
     public void onDisable() {
         getLogger().info("Plugin stopped");
+        databaseManager.close();
     }
     
 }

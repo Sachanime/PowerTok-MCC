@@ -19,6 +19,9 @@ jobs:
           java-version: '26'
           cache: maven
 
+      - name: Set build number
+        run: echo "buildNumber=$(( ${{ github.run_number }} - 1 ))" > buildNumber.properties
+
       - name: Build with Maven
         run: mvn -B package
 

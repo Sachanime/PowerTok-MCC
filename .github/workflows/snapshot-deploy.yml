@@ -20,7 +20,9 @@ jobs:
           cache: maven
 
       - name: Set build number
-        run: echo "buildNumber=$(( ${{ github.run_number }} - 1 ))" > buildNumber.properties
+        run: |
+          base=$(grep '^buildNumber=' buildNumber.properties | cut -d= -f2)
+          echo "buildNumber=$(( base + ${{ github.run_number }} - 1 ))" > buildNumber.properties
 
       - name: Build with Maven
         run: mvn -B package

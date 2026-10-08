@@ -1,8 +1,8 @@
-name: Snapshot Deployment
+name: Stable Deployment
 
 on:
-  push:
-    branches: [main]
+  release:
+    types: [published]
 
 jobs:
   build:
@@ -21,8 +21,13 @@ jobs:
           java-version: '26'
           cache: maven
 
+      - name: Set release version
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: mvn -B versions:set -DnewVersion="${RELEASE_TAG#v}-STABLE" -DgenerateBackupPoms=false
+
       - name: Set build number
-        run: echo "buildNumber=$(( $(git rev-list --count HEAD) - 1 ))" > buildNumber.properties
+        run: echo "buildNumber=$(( $(git rev-list --count HEAD) -1 ))" > buildNumber.properties
 
       - name: Build with Maven
         run: mvn -B package
@@ -44,7 +49,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     concurrency:
-      group: snapshot-deploy
+      group: stable-deploy
       cancel-in-progress: false
     steps:
       - name: Download JAR plugin
@@ -70,13 +75,4 @@ jobs:
           VPS_HOST: ${{ secrets.VPS_HOST }}
           VPS_USER: ${{ secrets.VPS_USER }}
         run: |
-          ssh "$VPS_USER@$VPS_HOST" "
-            rm -f ~/asp-dev/plugins/mcc-*.jar
-          "
-          scp dist/mcc-*.jar "$VPS_USER@$VPS_HOST:~/asp-dev/plugins/"
-          scp dist/mcc-*.jar "$VPS_USER@$VPS_HOST:/var/www/downloads/minecraft/plugins/MCC/snapshots/"
-          ssh "$VPS_USER@$VPS_HOST" '
-            screen -S pasp-dev -p 0 -X stuff "restart\r"
-            for i in $(seq 120); do pgrep -f "^java .*asp\.jar" > /dev/null || break; sleep 1; done
-            screen -S pasp-dev -p 0 -X stuff "java -Xms2G -Xmx5G -jar ./asp.jar -nogui\r"
-          '
+          scp dist/mcc-*.jar "$VPS_USER@$VPS_HOST:/var/www/downloads/minecraft/plugins/MCC/releases/"

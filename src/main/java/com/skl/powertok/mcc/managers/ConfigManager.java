@@ -10,6 +10,12 @@ import com.google.gson.JsonSyntaxException;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+/**
+ * Reads the legacy {@code PowerTok/config.json} (hwid and one key per game).
+ *
+ * @deprecated The licence guard no longer reads this file: {@link AccessManager} checks the Streamix game ticket.
+ */
+@Deprecated
 public class ConfigManager {
     
     private final JavaPlugin plugin;

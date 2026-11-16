@@ -18,6 +18,14 @@ This plugin offers several manager classes to streamline development:
 *   **`CommandManager`**: A handler for registering and executing custom commands using Paper's Brigadier command API.
 *   **`WorldManager` (Deprecated)**: The legacy world manager. It is recommended to use `AdvancedWorldManager` for all new development.
 
+## Licence guard
+
+Every PowerTok game calls `new AccessManager(this).checkAccess()` first thing in its `onEnable()`. When it returns `false`, the game is already disabled and the server keeps running without it.
+
+Access comes from **Streamix**: when it starts the server, Streamix fetches a *game ticket* from its backend and passes it in the `POWERTOK_TICKET` environment variable. The ticket is signed (ECDSA P-256) by the backend; MCC only embeds the public key, so it needs no secret and no network. A game is enabled when the signature is valid, the ticket is less than an hour old, it was issued for this computer (the fingerprint is recomputed by MCC from the Windows `MachineGuid`), and it opens every game (`"all": true`, the Everything plan) or lists this one (its plugin name in lower case, e.g. `powerraids`).
+
+A server started outside Streamix, offline, or on another computer runs without the games. The full contract is `docs/licence-jeux.md` in the Streamix repository.
+
 ## Installation
 
 1.  Download the latest release from the repository's releases page.
